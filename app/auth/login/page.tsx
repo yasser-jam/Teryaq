@@ -7,10 +7,9 @@ export default function LoginPage() {
       {/* Left Section - Hero Image */}
       <div className='hidden lg:block relative'>
         <Image
-          src='/placeholder.svg?height=1080&width=1920'
+          src='/images/auth/login.webp'
           alt='Login background'
           fill
-          className='object-cover'
           priority
         />
         <div className='absolute inset-0 bg-black/20' />
