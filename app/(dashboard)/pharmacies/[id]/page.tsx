@@ -16,6 +16,7 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
   type formData = z.infer<typeof PHARMACY_SCHEMEA>;
@@ -25,10 +26,14 @@ export default function Page() {
     defaultValues: {},
   });
 
+  const goBack = () => {
+    router.replace('/pharmacies')
+  }
+
   const actions = (
     <>
       <div className='flex items-center gap-2 mt-4'>
-        <Button variant='ghost'>Cancel</Button>
+        <Button variant='ghost' onClick={goBack}>Cancel</Button>
         <Button>Save</Button>
       </div>
     </>
@@ -36,13 +41,17 @@ export default function Page() {
 
   const onSubmit = async () => {};
 
+
+  const router = useRouter()
+
   return (
     <>
       <BasePageDialog
         title='Pharmacy Details'
         subtitle='Fill Pharmacy Data'
-        className=''
+        className='w-[700px]'
         footer={actions}
+        onOpenChange={goBack}
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

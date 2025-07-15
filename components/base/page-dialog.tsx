@@ -32,9 +32,9 @@ export default function BasePageDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className={(classTitle && cn('min-w-200')) || cn('', className)}
+        className={cn('!min-w-none !max-w-none', className)}
       >
-        <div className='relative w-full'>
+        <div className='relative'>
           {loading &&
             // Todo: add loader
             ''

@@ -1,18 +1,18 @@
-"use client"
+'use client';
 
-import BaseTitle from '@/components/base/title'
-import { Button } from '@/components/ui/button'
-import BaseTable from '@/components/base/table'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import ActionMenu from '@/components/base/action-menu'
-import type { Pharmacy } from '@/types'
-import { MoreVert } from 'iconoir-react'
+import BaseTitle from '@/components/base/title';
+import { Button } from '@/components/ui/button';
+import BaseTable from '@/components/base/table';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import ActionMenu from '@/components/base/action-menu';
+import type { Pharmacy } from '@/types';
+import { MoreVert } from 'iconoir-react';
 
 // Fix Pharmacy type locally (pharmacyName should be string)
 type PharmacyFixed = Omit<Pharmacy, 'pharmacyName' | 'managerLastNam'> & {
   pharmacyName: string;
   managerLastName: string;
-}
+};
 
 const pharmacies: PharmacyFixed[] = [
   {
@@ -41,29 +41,29 @@ const pharmacies: PharmacyFixed[] = [
     managerFirstName: 'Jane',
     managerLastName: 'Smith',
   },
-]
+];
 
-import { ColumnDef } from '@tanstack/react-table'
+import { ColumnDef } from '@tanstack/react-table';
 
 const columns: ColumnDef<PharmacyFixed>[] = [
   {
     header: 'Pharmacy',
     accessorKey: 'pharmacyName',
     cell: ({ row }) => {
-      const pharmacy = row.original
+      const pharmacy = row.original;
       return (
-        <div className="flex items-center gap-3">
+        <div className='flex items-center gap-3'>
           <Avatar>
-            <AvatarFallback>
-              {pharmacy.pharmacyName.charAt(0)}
-            </AvatarFallback>
+            <AvatarFallback>{pharmacy.pharmacyName.charAt(0)}</AvatarFallback>
           </Avatar>
           <div>
-            <div className="font-medium">{pharmacy.pharmacyName}</div>
-            <div className="text-xs text-muted-foreground">{pharmacy.email}</div>
+            <div className='font-medium'>{pharmacy.pharmacyName}</div>
+            <div className='text-xs text-muted-foreground'>
+              {pharmacy.email}
+            </div>
           </div>
         </div>
-      )
+      );
     },
   },
   {
@@ -77,12 +77,21 @@ const columns: ColumnDef<PharmacyFixed>[] = [
   {
     header: 'Actions',
     id: 'actions',
-    cell: () => <ActionMenu toggler={<Button variant="ghost" size="icon"><MoreVert /></Button>} editAction deleteAction viewAction />, // Add handlers as needed
+    cell: () => (
+      <ActionMenu
+        toggler={
+          <Button variant='ghost' size='icon'>
+            <MoreVert />
+          </Button>
+        }
+        editAction
+        deleteAction
+        viewAction
+      />
+    ), // Add handlers as needed
   },
-]
+];
 
 export default function PharmaciesPage() {
-  return (
-    <></>
-  )
-} 
+  return <></>;
+}

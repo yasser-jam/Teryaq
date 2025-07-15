@@ -44,6 +44,7 @@ const pharmacies: PharmacyFixed[] = [
 ];
 
 import { ColumnDef } from '@tanstack/react-table';
+import { useRouter } from 'next/navigation';
 
 const columns: ColumnDef<PharmacyFixed>[] = [
   {
@@ -97,19 +98,24 @@ export default function PharmaciesLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+
   return (
     <>
       <div className='space-y-6'>
         <div className='flex items-center justify-between'>
           <BaseTitle>Pharmacies</BaseTitle>
-          <Button variant='outline' className='ml-auto'>
+
+          <Button
+            className='ml-auto'
+            onClick={() => router.replace('/pharmacies/create')}
+          >
             Add New Pharmacy
           </Button>
         </div>
         <BaseTable columns={columns} data={pharmacies} />
       </div>
-
-      { children }
+      s{children}
     </>
   );
 }

@@ -60,7 +60,7 @@ export default function BaseTable({
             <TableRow className="!bg-transparent" key={headerGroup.id}>
               {headerGroup.headers.map(header => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className='text-gray-400 font-medium text-xs'>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
