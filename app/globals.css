@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -45,21 +45,41 @@
 
 :root {
   --radius: 0.625rem;
+  /* Layout colors */
+  --background: #fefefe; /* Very light grayish blue - #F9FAFC */
+  --foreground: oklch(0.18 0.03 250); /* For dark text on light background */
 
-  /* Updated colors */
-  --background: oklch(0.985 0.005 250); /* #F9FAFC */
-  --primary: oklch(0.205 0.055 259.4); /* #0C3C6A */
+  --sidebar: oklch(0.2 0.05 259.4); /* Dark navy for sidebar */
+  --sidebar-foreground: oklch(
+    0.985 0.005 250
+  ); /* Light text for dark sidebar */
+
+  /* Primary colors (lighter) */
+  --primary: oklch(0.35 0.1 259.4); /* Softer navy */
   --primary-foreground: oklch(0.985 0 0); /* white */
 
-  --secondary: oklch(0.55 0.045 259.4); /* lighter navy */
-  --secondary-foreground: oklch(0.985 0 0);
+  /* Secondary (light steel blue/navy) */
+  --secondary: oklch(0.6 0.05 259.4); /* Lightened secondary */
+  --secondary-foreground: oklch(0.14 0.03 259.4);
 
-  --accent: oklch(0.88 0.04 259.4); /* pale blue */
-  --accent-foreground: oklch(0.205 0.055 259.4);
+  /* Accent (light blue touch) */
+  --accent: oklch(0.85 0.04 259.4); /* Pale blue */
+  --accent-foreground: oklch(0.25 0.06 259.4);
 
-  --destructive: oklch(0.62 0.21 27); /* alert red */
+  /* Success (teal) */
+  --success: oklch(0.75 0.13 180); /* Teal green */
+  --success-foreground: oklch(0.14 0.03 180); /* Dark teal text */
 
-  --ring: oklch(0.38 0.055 259.4); /* darker primary */
+  /* Warning (amber) */
+  --warning: oklch(0.85 0.17 85); /* Light amber */
+  --warning-foreground: oklch(0.2 0.07 85); /* Dark amber text */
+
+  /* Destructive (rose) */
+  --destructive: oklch(0.72 0.18 25); /* Light rose red */
+  --destructive-foreground: oklch(0.16 0.04 25);
+
+  /* Ring / border focus */
+  --ring: #353569; /* Medium navy ring */
 
   /* Untouched original values */
   --foreground: oklch(0.145 0 0);
@@ -76,12 +96,12 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
+  --sidebar: #f1f2f3;
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-accent: #1e85a5;
+  --sidebar-accent-foreground: oklch(0.922 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }

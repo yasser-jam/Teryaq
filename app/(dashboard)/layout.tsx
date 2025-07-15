@@ -11,14 +11,15 @@ export default function Page({ children }: any) {
       style={
         {
           '--sidebar-width': 'calc(var(--spacing) * 60)',
-          '--header-height': 'calc(var(--spacing) * 12)',
+          '--header-height': 'calc(var(--spacing) * 14)',
         } as React.CSSProperties
       }
     >
       <AppSidebar variant='inset' />
+
       <SidebarInset>
         <SiteHeader />
-        <div className='@container/main gap-2'>{children}</div>
+        <div className='container p-4'>{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
