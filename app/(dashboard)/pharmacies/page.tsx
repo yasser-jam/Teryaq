@@ -83,12 +83,6 @@ const columns: ColumnDef<PharmacyFixed>[] = [
 
 export default function PharmaciesPage() {
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <BaseTitle>Pharmacies</BaseTitle>
-        <Button variant="outline" className="ml-auto">Add New Pharmacy</Button>
-      </div>
-      <BaseTable columns={columns} data={pharmacies} />
-    </div>
+    <></>
   )
 } 

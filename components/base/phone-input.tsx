@@ -42,10 +42,10 @@ type PhoneInputProps = Omit<
 > &
   Omit<Props<typeof RPNInput>, 'onChange'> & {
     onChange?: (value: Value) => void
-    variant?: React.ComponentProps<typeof Input>['variant']
+    variant?: React.ComponentProps<typeof Input>
   }
 
-const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = forwardRef<
+const BasePhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = forwardRef<
   React.ElementRef<typeof RPNInput>,
   PhoneInputProps
 >(({ className, onChange, value, ...props }, ref) => {
@@ -76,7 +76,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = forwardRef<
     />
   )
 })
-PhoneInput.displayName = 'PhoneInput'
+BasePhoneInput.displayName = 'BasePhoneInput'
 
 const InputComponent = forwardRef<
   HTMLInputElement,
@@ -221,4 +221,4 @@ const FlagComponent = ({ country, countryName }: FlagProps) => {
   )
 }
 
-export { PhoneInput }
+export { BasePhoneInput }
