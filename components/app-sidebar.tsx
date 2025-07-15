@@ -54,6 +54,11 @@ const data = {
       url: '/employees',
       icon: IconUsers,
     },
+    {
+      title: 'Pharmacies',
+      url: '/pharmacies',
+      icon: IconDatabase,
+    },
   ],
   navClouds: [
     {
