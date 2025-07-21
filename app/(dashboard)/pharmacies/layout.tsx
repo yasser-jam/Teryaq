@@ -45,6 +45,8 @@ const pharmacies: PharmacyFixed[] = [
 
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { api } from '@/lib/api';
 
 const columns: ColumnDef<PharmacyFixed>[] = [
   {
@@ -100,8 +102,15 @@ export default function PharmaciesLayout({
 }) {
   const router = useRouter();
 
+
+  const { data: pharamacies } = useQuery({
+    queryKey: ['pharmacies-list'],
+    queryFn: () => api('/pharmacy/all')
+  })
+
   return (
     <>
+    { pharmacies.length }
       <div className='space-y-6'>
         <div className='flex items-center justify-between'>
           <BaseTitle>Pharmacies</BaseTitle>
@@ -115,7 +124,7 @@ export default function PharmaciesLayout({
         </div>
         <BaseTable columns={columns} data={pharmacies} />
       </div>
-      s{children}
+      {children}
     </>
   );
 }

@@ -8,15 +8,41 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
+
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { api } from '@/lib/api';
+import { useRouter } from 'next/navigation';
+import { successToast } from '@/lib/toast';
+
+
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', { mobile, password });
+
+  const router = useRouter()
+
+  const submitMutation = useMutation({
+    mutationKey: ['login'],
+    mutationFn: () => fetch('http://159.198.75.161:13000/api/v1/admin/login', {
+      body: JSON.stringify({
+        email,
+        password
+      }),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }),
+    onSuccess() {
+      successToast('Logged in Successfully')
+    }
+  })
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    submitMutation.mutate()
   };
 
   const togglePasswordVisibility = () => {
@@ -45,19 +71,19 @@ export default function LoginForm() {
 
       {/* Login Form */}
       <form onSubmit={handleSubmit} className='space-y-6'>
-        {/* Mobile Number Field */}
+        {/* Email Field */}
         <div className='space-y-2'>
-          <Label htmlFor='mobile' className='text-sm font-medium'>
-            Mobile Number
+          <Label htmlFor='email' className='text-sm font-medium'>
+            Email
           </Label>
           <div className='relative'>
             <Smartphone className='absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4' />
             <Input
-              id='mobile'
+              id='email'
               type='tel'
-              placeholder='Enter your mobile number'
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
+              placeholder='Enter your email'
+              value={email}
+              onChange={(e) => setEmail(String(e.target.value))}
               className='pl-10'
               required
             />

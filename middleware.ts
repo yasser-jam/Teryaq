@@ -3,19 +3,19 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get('mao.access-token')?.value
-  const refreshToken = request.cookies.get('mao.refresh-token')?.value
-  
+
+  // If the request is not authenticated and the pathname does not include 'auth', redirect to /auth/login
+  // if (!accessToken && !request.nextUrl.pathname.includes('/auth')) {
+  //   return NextResponse.redirect(new URL('/auth/login', request.url))
+  // }
+
+  // Otherwise, allow the request
+  return NextResponse.next();
 }
 
-
-// Todo: keep only bypass and onboarding or matcher
+// Exclude all /auth routes and other static/api files from middleware
 export const config = {
   matcher: [
-    /*
-        Match all routes except:
-        - /login
-        - /register
-      */
-    '/((?!login|api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|images|icons).*)'
+    '/((?!auth|api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|images|icons).*)'
   ]
 }

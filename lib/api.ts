@@ -6,7 +6,9 @@ import { errorToast } from '@/lib/toast'
 const axiosInstance = axios.create({
   baseURL: `${process.env.baseUrl}`,
   headers: {
-    Accept: 'application/json',
+    Accept: '*',
+    Authorization: undefined,
+    'User-Agent': undefined,
     'Content-Type': 'application/json'
   }
 })
@@ -29,18 +31,17 @@ export const api = async function (
 ) {
   try {
     // Add token manually
-    const token = Cookies.get('mao.access-token')
+    const token = Cookies.get('t-access-token')
 
     const res = await axiosInstance.request({
+      
       url: optimizeUrl(url),
       method: options.method || 'GET',
       headers: {
-        ...options.headers,
-        Authorization: token ? `Bearer ${token}` : ''
+        'Referrer-Policy': 'no-referrer'
       },
       params: options.params, // Axios handles URLSearchParams internally
       data: options.body, // Axios uses `data` instead of `body`
-      ...options
     })
 
     return res?.data
@@ -50,11 +51,10 @@ export const api = async function (
 
     if (status === 401 && window?.location?.pathname !== '/login') {
       // clear credentials
-      Cookies.remove('mao.access-token')
-      Cookies.remove('mao.refresh-token')
+      Cookies.remove('t-access-token')
 
       // redirect to login page
-      window.location.replace('/login')
+      // window.location.replace('/login')
     }
 
     if (options.showToaster !== false) {
