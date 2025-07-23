@@ -17,7 +17,7 @@ import {
   IconSearch,
   IconSettings,
   IconUsers,
-} from '@tabler/icons-react';
+} from '@tabler/icons-react'; 
 
 import { NavDocuments } from '@/components/nav-documents';
 import { NavMain } from '@/components/nav-main';
@@ -36,6 +36,7 @@ import {
 } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const data = {
   user: {
@@ -158,15 +159,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className='data-[slot=sidebar-menu-button]:!p-1.5'
-            >
-              <a href='#'>
-                <IconInnerShadowTop className='!size-5' />
-                <span className='text-base font-semibold'>Teryaq</span>
-              </a>
-            </SidebarMenuButton>
+              <Link href='/' className='flex items-center gap-2 mb-4'>
+                <IconInnerShadowTop className='size-7' />
+                <span className='text-2xl font-semibold'>Teryaq</span>
+              </Link>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -177,7 +173,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {data.navMain?.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
-                    className={cn('cursor-pointer')}
+                    className={cn('cursor-pointer transition-all')}
+                    size="lg"
                     isActive={isActive(item.url)}
                     tooltip={item.title}
                     onClick={() => router.replace(item.url)}
@@ -191,9 +188,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -110,7 +110,6 @@ export default function PharmaciesLayout({
 
   return (
     <>
-    { pharmacies.length }
       <div className='space-y-6'>
         <div className='flex items-center justify-between'>
           <BaseTitle>Pharmacies</BaseTitle>

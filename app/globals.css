@@ -63,7 +63,7 @@
   --secondary-foreground: oklch(0.14 0.03 259.4);
 
   /* Accent (light blue touch) */
-  --accent: oklch(0.85 0.04 259.4); /* Pale blue */
+  --accent: #F2F5F7; /* Pale blue */
   --accent-foreground: oklch(0.25 0.06 259.4);
 
   /* Success (teal) */
@@ -96,11 +96,11 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: #f1f2f3;
+  --sidebar: #1c45750d;
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: #707983e5;
+  --sidebar-accent: #033166e5;
   --sidebar-accent-foreground: oklch(0.922 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
