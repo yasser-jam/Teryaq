@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import Cookies from 'js-cookie'
 import { errorToast } from '@/lib/toast'
+import { getCookie } from './utils'
 
 // Create a reusable axios instance
 const axiosInstance = axios.create({
@@ -31,14 +32,14 @@ export const api = async function (
 ) {
   try {
     // Add token manually
-    const token = Cookies.get('t-access-token')
+    const token = getCookie('t.access-token')
 
     const res = await axiosInstance.request({
       
       url: optimizeUrl(url),
       method: options.method || 'GET',
       headers: {
-        'Referrer-Policy': 'no-referrer'
+        Authorization: `Bearer ${token}`
       },
       params: options.params, // Axios handles URLSearchParams internally
       data: options.body, // Axios uses `data` instead of `body`
@@ -51,10 +52,10 @@ export const api = async function (
 
     if (status === 401 && window?.location?.pathname !== '/login') {
       // clear credentials
-      Cookies.remove('t-access-token')
+      Cookies.remove('t.access-token')
 
       // redirect to login page
-      // window.location.replace('/login')
+      window.location.replace('/login')
     }
 
     if (options.showToaster !== false) {

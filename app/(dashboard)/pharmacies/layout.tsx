@@ -14,35 +14,6 @@ type PharmacyFixed = Omit<Pharmacy, 'pharmacyName' | 'managerLastNam'> & {
   managerLastName: string;
 };
 
-const pharmacies: PharmacyFixed[] = [
-  {
-    id: 1,
-    pharmacyName: 'HealthPlus',
-    licenseNumber: 123456,
-    address: '123 Main St',
-    email: 'info@healthplus.com',
-    type: 'MAIN',
-    openingHours: '8am - 10pm',
-    phoneNumber: '+1234567890',
-    managerEmail: 'manager@healthplus.com',
-    managerFirstName: 'John',
-    managerLastName: 'Doe',
-  },
-  {
-    id: 2,
-    pharmacyName: 'WellCare',
-    licenseNumber: 654321,
-    address: '456 Elm St',
-    email: 'contact@wellcare.com',
-    type: 'BRANCH',
-    openingHours: '9am - 9pm',
-    phoneNumber: '+0987654321',
-    managerEmail: 'jane@wellcare.com',
-    managerFirstName: 'Jane',
-    managerLastName: 'Smith',
-  },
-];
-
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -121,8 +92,10 @@ export default function PharmaciesLayout({
             Add New Pharmacy
           </Button>
         </div>
-        <BaseTable columns={columns} data={pharmacies} />
+
+        <BaseTable columns={columns} data={pharamacies || []} />
       </div>
+      
       {children}
     </>
   );
