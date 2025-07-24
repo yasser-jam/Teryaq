@@ -30,3 +30,22 @@ export interface Pharmacy {
   managerFirstName: string;
   managerLastNam: string;
 }
+
+export interface MasterProduct {
+    id: number;
+    tradeName: string;
+    scientificName: string;
+    concentration: string;
+    size: string;
+    refPurchasePrice: number;
+    refSellingPrice: number;
+    notes: string;
+    tax: number;
+    barcode: string;
+    productType: 'MASTER' | 'PHARMACY';
+    requiresPrescription: boolean;
+    type: string;
+    form: string;
+    manufacturer: string;
+    categories: string[];
+}

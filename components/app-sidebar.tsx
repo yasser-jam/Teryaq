@@ -60,6 +60,11 @@ const data = {
       url: '/pharmacies',
       icon: IconDatabase,
     },
+    {
+      title: 'Master Products',
+      url: '/master-products',
+      icon: IconDatabase,
+    },
   ],
   navClouds: [
     {
