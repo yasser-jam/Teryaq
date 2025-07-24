@@ -1,0 +1,30 @@
+export const categoryOptions = [
+  { label: 'Antibiotics', value: 'antibiotics' },
+  { label: 'Pain Relief', value: 'pain-relief' },
+  { label: 'Vitamins', value: 'vitamins' },
+  { label: 'Supplements', value: 'supplements' },
+  { label: 'Prescription', value: 'prescription' },
+  { label: 'OTC', value: 'otc' },
+  { label: 'Cardiovascular', value: 'cardiovascular' },
+  { label: 'Respiratory', value: 'respiratory' },
+  { label: 'Digestive', value: 'digestive' },
+  { label: 'Neurological', value: 'neurological' },
+];
+
+export const masterProductDefaultValues = {
+  tradeName: '',
+  scientificName: '',
+  concentration: '',
+  size: '',
+  refPurchasePrice: 0,
+  refSellingPrice: 0,
+  notes: '',
+  tax: 0,
+  barcode: '',
+  productType: 'MASTER' as const,
+  requiresPrescription: false,
+  type: '',
+  form: '',
+  manufacturer: '',
+  categories: [],
+}; 
