@@ -3,7 +3,6 @@ import BasePageDialog from '@/components/base/page-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { BaseMultipleSelect } from '@/components/base/multiple-select';
 import {
@@ -20,37 +19,8 @@ import { useEffect, use } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
-const MASTER_PRODUCT_SCHEMA = z.object({
-  tradeName: z.string().min(1, 'Trade name is required'),
-  scientificName: z.string().min(1, 'Scientific name is required'),
-  concentration: z.string().optional(),
-  size: z.string().optional(),
-  refPurchasePrice: z.number().optional(),
-  refSellingPrice: z.number().min(0, 'Price must be positive'),
-  notes: z.string().optional(),
-  tax: z.number().optional(),
-  barcode: z.string().optional(),
-  productType: z.enum(['MASTER', 'PHARMACY']).default('MASTER'),
-  requiresPrescription: z.boolean().default(false),
-  type: z.string().optional(),
-  form: z.string().optional(),
-  manufacturer: z.string().min(1, 'Manufacturer is required'),
-  categories: z.array(z.string()).default([]),
-});
-
-const categoryOptions = [
-  { label: 'Antibiotics', value: 'antibiotics' },
-  { label: 'Pain Relief', value: 'pain-relief' },
-  { label: 'Vitamins', value: 'vitamins' },
-  { label: 'Supplements', value: 'supplements' },
-  { label: 'Prescription', value: 'prescription' },
-  { label: 'OTC', value: 'otc' },
-  { label: 'Cardiovascular', value: 'cardiovascular' },
-  { label: 'Respiratory', value: 'respiratory' },
-  { label: 'Digestive', value: 'digestive' },
-  { label: 'Neurological', value: 'neurological' },
-];
+import { MASTER_PRODUCT_SCHEMA } from '@/lib/schema';
+import { categoryOptions, masterProductDefaultValues } from '@/lib/init';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -60,28 +30,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   const form = useForm<FormData>({
     resolver: zodResolver(MASTER_PRODUCT_SCHEMA),
-    defaultValues: {
-      tradeName: '',
-      scientificName: '',
-      concentration: '',
-      size: '',
-      refPurchasePrice: 0,
-      refSellingPrice: 0,
-      notes: '',
-      tax: 0,
-      barcode: '',
-      productType: 'MASTER',
-      requiresPrescription: false,
-      type: '',
-      form: '',
-      manufacturer: '',
-      categories: [],
-    }
+    defaultValues: masterProductDefaultValues
   });
 
   const { data: masterProduct } = useQuery({
     queryKey: ['master-product', id],
-    queryFn: () => api(`/master-products/${id}`),
+    queryFn: () => api(`/master_products/${id}`),
     enabled: id !== 'create'
   });
 
