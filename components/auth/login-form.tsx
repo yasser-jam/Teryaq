@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { successToast } from '@/lib/toast';
+import { setCookie } from '@/lib/utils';
 
 
 export default function LoginForm() {
@@ -25,18 +26,17 @@ export default function LoginForm() {
 
   const submitMutation = useMutation({
     mutationKey: ['login'],
-    mutationFn: () => fetch('http://159.198.75.161:13000/api/v1/admin/login', {
-      body: JSON.stringify({
+    mutationFn: () => api('/admin/login', {
+      method: 'POST',
+      body: {
         email,
         password
-      }),
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
       }
     }),
-    onSuccess() {
+    onSuccess(response) {
       successToast('Logged in Successfully')
+      setCookie('t.access-token', response.token)
+      router.push('/')
     }
   })
 
@@ -135,7 +135,7 @@ export default function LoginForm() {
         </div>
 
         {/* Login Button */}
-        <Button type='submit' className='w-full' size='lg'>
+        <Button type='submit' loading={submitMutation.isPending} className='w-full' size='lg'>
           Sign In
         </Button>
       </form>

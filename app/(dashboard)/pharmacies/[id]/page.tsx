@@ -23,7 +23,6 @@ export default function Page() {
 
   const form = useForm<formData>({
     resolver: zodResolver(PHARMACY_SCHEMEA),
-    defaultValues: {},
   });
 
   const goBack = () => {
@@ -39,7 +38,10 @@ export default function Page() {
     </>
   );
 
-  const onSubmit = async () => {};
+  const onSubmit = async (data: formData) => {
+    console.log('hello');
+    console.log(data);
+  };
 
 
   const router = useRouter()
@@ -55,7 +57,7 @@ export default function Page() {
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='grid grid-cols-2 items-center gap-4'>
+            <div className='grid grid-cols-2 items-center gap-4'> 
               <div className=''>
                 <FormField
                   control={form.control}
