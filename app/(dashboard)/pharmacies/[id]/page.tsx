@@ -17,13 +17,36 @@ import {
   FormLabel,
 } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
+import { api } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, use } from 'react';
 
-export default function Page() {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  
   type formData = z.infer<typeof PHARMACY_SCHEMEA>;
 
   const form = useForm<formData>({
     resolver: zodResolver(PHARMACY_SCHEMEA),
+    defaultValues: {
+      pharmacyName: '',
+      licenseNumber: '',
+      phoneNumber: '',
+      managerPassword: '',
+    }
   });
+
+  const { data: pharmacy } = useQuery({
+    queryKey: ['pharmacy', id],
+    queryFn: () => api(`/pharmacy/${id}`),
+    enabled: id != 'create'
+  })
+
+  useEffect(() => {
+    if (pharmacy) {
+      form.reset(pharmacy)
+    }
+  }, [pharmacy])
 
   const goBack = () => {
     router.replace('/pharmacies')

@@ -19,53 +19,6 @@ import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 
-const columns: ColumnDef<PharmacyFixed>[] = [
-  {
-    header: 'Pharmacy',
-    accessorKey: 'pharmacyName',
-    cell: ({ row }) => {
-      const pharmacy = row.original;
-      return (
-        <div className='flex items-center gap-3'>
-          <Avatar>
-            <AvatarFallback>{pharmacy.pharmacyName.charAt(0)}</AvatarFallback>
-          </Avatar>
-          <div>
-            <div className='font-medium'>{pharmacy.pharmacyName}</div>
-            <div className='text-xs text-muted-foreground'>
-              {pharmacy.email}
-            </div>
-          </div>
-        </div>
-      );
-    },
-  },
-  {
-    header: 'Phone Number',
-    accessorKey: 'phoneNumber',
-  },
-  {
-    header: 'Manager Email',
-    accessorKey: 'managerEmail',
-  },
-  {
-    header: 'Actions',
-    id: 'actions',
-    cell: () => (
-      <ActionMenu
-        toggler={
-          <Button variant='ghost' size='icon'>
-            <MoreVert />
-          </Button>
-        }
-        editAction
-        deleteAction
-        viewAction
-      />
-    ), // Add handlers as needed
-  },
-];
-
 export default function PharmaciesLayout({
   children,
 }: {
@@ -73,11 +26,57 @@ export default function PharmaciesLayout({
 }) {
   const router = useRouter();
 
+  const columns: ColumnDef<PharmacyFixed>[] = [
+    {
+      header: 'Pharmacy',
+      accessorKey: 'pharmacyName',
+      cell: ({ row }) => {
+        const pharmacy = row.original;
+        return (
+          <div className='flex items-center gap-3'>
+            <Avatar>
+              <AvatarFallback>{pharmacy.pharmacyName.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div>
+              <div className='font-medium'>{pharmacy.pharmacyName}</div>
+              <div className='text-xs text-muted-foreground'>
+                {pharmacy.email}
+              </div>
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      header: 'Phone Number',
+      accessorKey: 'phoneNumber',
+    },
+    {
+      header: 'Manager Email',
+      accessorKey: 'managerEmail',
+    },
+    {
+      header: 'Actions',
+      id: 'actions',
+      cell: ({ row }) => (
+        <ActionMenu
+          toggler={
+            <Button variant='ghost' size='icon'>
+              <MoreVert />
+            </Button>
+          }
+          editAction
+          deleteAction
+          onEdit={() => router.push(`/pharmacies/${row.original.id}`)}
+        />
+      ), // Add handlers as needed
+    },
+  ];
 
   const { data: pharamacies } = useQuery({
     queryKey: ['pharmacies-list'],
-    queryFn: () => api('/pharmacy/all')
-  })
+    queryFn: () => api('/pharmacy/all'),
+  });
 
   return (
     <>
@@ -95,7 +94,7 @@ export default function PharmaciesLayout({
 
         <BaseTable columns={columns} data={pharamacies || []} />
       </div>
-      
+
       {children}
     </>
   );
