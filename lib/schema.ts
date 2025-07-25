@@ -36,3 +36,7 @@ export const CATEGORY_SCHEMA = z.object({
 export const TYPE_SCHEMA = z.object({
   name: requiredString(),
 });
+
+export const MANUFACTURER_SCHEMA = z.object({
+  name: requiredString(),
+});

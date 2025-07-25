@@ -70,6 +70,16 @@ const data = {
       url: '/categories',
       icon: IconDatabase,
     },
+    {
+      title: 'Types',
+      url: '/types',
+      icon: IconDatabase,
+    },
+    {
+      title: 'Manufacturers',
+      url: '/manufacturers',
+      icon: IconDatabase,
+    },
   ],
   navClouds: [
     {
