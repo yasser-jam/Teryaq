@@ -54,3 +54,13 @@ export interface Category {
   id: number;
   name: string;
 }
+
+export interface Type {
+  id: number;
+  name: string;
+}
+
+export interface Manufacturer {
+  id: number;
+  name: string;
+}
