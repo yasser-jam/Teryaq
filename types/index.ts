@@ -49,3 +49,8 @@ export interface MasterProduct {
     manufacturer: string;
     categories: string[];
 }
+
+export interface Category {
+  id: number;
+  name: string;
+}

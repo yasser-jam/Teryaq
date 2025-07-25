@@ -65,6 +65,11 @@ const data = {
       url: '/master-products',
       icon: IconDatabase,
     },
+    {
+      title: 'Categories',
+      url: '/categories',
+      icon: IconDatabase,
+    },
   ],
   navClouds: [
     {

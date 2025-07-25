@@ -28,3 +28,7 @@ export const MASTER_PRODUCT_SCHEMA = z.object({
   manufacturer: z.string().min(1, 'Manufacturer is required'),
   categories: z.array(z.string()),
 });
+
+export const CATEGORY_SCHEMA = z.object({
+  name: requiredString(),
+});
