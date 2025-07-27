@@ -1,7 +1,7 @@
 import z from "zod";
 
 const requiredString = () => {
-    return z.string().trim().nonempty()
+    return z.string().min(1, 'This field is required').trim()
 }
 
 export const PHARMACY_SCHEMEA = z.object({
@@ -31,10 +31,12 @@ export const MASTER_PRODUCT_SCHEMA = z.object({
 
 export const CATEGORY_SCHEMA = z.object({
   name: requiredString(),
+  name_ar: requiredString(),
 });
 
 export const TYPE_SCHEMA = z.object({
   name: requiredString(),
+  name_ar: requiredString(),
 });
 
 export const MANUFACTURER_SCHEMA = z.object({

@@ -9,8 +9,9 @@ import type { Category } from '@/types';
 import { MoreVert } from 'iconoir-react';
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { successToast } from '@/lib/toast';
 
 export default function CategoriesLayout({
   children,
@@ -52,6 +53,7 @@ export default function CategoriesLayout({
             }
             editAction
             deleteAction
+            onDelete={() => deleteCategory(row.original.id.toString())}
             onEdit={() => router.push(`/categories/${row.original.id}`)}
           />
         </div>
@@ -64,6 +66,15 @@ export default function CategoriesLayout({
     queryFn: () => api('/categories'),
   });
 
+  const queryClient = useQueryClient();
+  const { mutate: deleteCategory } = useMutation({
+    mutationFn: (id: string) => api(`/categories/${id}`, { method: 'DELETE' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['categories-list'] });
+      successToast('Category deleted successfully');
+    },
+  });
+  
   return (
     <>
       <div className='space-y-6'>
