@@ -9,8 +9,9 @@ import type { Type } from '@/types';
 import { MoreVert } from 'iconoir-react';
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { successToast } from '@/lib/toast';
 
 export default function TypesLayout({
   children,
@@ -53,6 +54,7 @@ export default function TypesLayout({
             editAction
             deleteAction
             onEdit={() => router.push(`/types/${row.original.id}`)}
+            onDelete={() => deleteType(row.original.id.toString())}
           />
         </div>
       ),
@@ -62,6 +64,15 @@ export default function TypesLayout({
   const { data: types } = useQuery({
     queryKey: ['types-list'],
     queryFn: () => api('/types'),
+  });
+
+  const queryClient = useQueryClient();
+  const { mutate: deleteType } = useMutation({
+    mutationFn: (id: string) => api(`/types/${id}`, { method: 'DELETE' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['types-list'] });
+      successToast('Type deleted successfully');
+    },
   });
 
   return (
