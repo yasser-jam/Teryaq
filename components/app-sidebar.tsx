@@ -171,7 +171,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const router = useRouter();
 
   const isActive = (url: string) => {
-    return pathName == url;
+    // Handle root path specially to avoid matching all routes
+    if (url === '/') {
+      return pathName === '/';
+    }
+    // For other paths, check if current path includes the URL
+    return pathName.includes(url);
   };
 
   return (
