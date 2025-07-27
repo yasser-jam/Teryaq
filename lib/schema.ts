@@ -41,4 +41,5 @@ export const TYPE_SCHEMA = z.object({
 
 export const MANUFACTURER_SCHEMA = z.object({
   name: requiredString(),
+  name_ar: requiredString(),
 });

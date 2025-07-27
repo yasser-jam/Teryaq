@@ -9,8 +9,9 @@ import type { Manufacturer } from '@/types';
 import { MoreVert } from 'iconoir-react';
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { successToast } from '@/lib/toast';
 
 export default function ManufacturersLayout({
   children,
@@ -53,6 +54,7 @@ export default function ManufacturersLayout({
             editAction
             deleteAction
             onEdit={() => router.push(`/manufacturers/${row.original.id}`)}
+            onDelete={() => deleteManufacturer(row.original.id.toString())}
           />
         </div>
       ),
@@ -62,6 +64,15 @@ export default function ManufacturersLayout({
   const { data: manufacturers } = useQuery({
     queryKey: ['manufacturers-list'],
     queryFn: () => api('/manufacturers'),
+  });
+
+  const queryClient = useQueryClient();
+  const { mutate: deleteManufacturer } = useMutation({
+    mutationFn: (id: string) => api(`/manufacturers/${id}`, { method: 'DELETE' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['manufacturers-list'] });
+      successToast('Manufacturer deleted successfully');
+    },
   });
 
   return (
