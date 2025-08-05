@@ -13,21 +13,21 @@ export const PHARMACY_SCHEMEA = z.object({
 })
 
 export const MASTER_PRODUCT_SCHEMA = z.object({
-  tradeName: z.string().min(1, 'Trade name is required'),
-  scientificName: z.string().min(1, 'Scientific name is required'),
-  concentration: z.string().optional(),
-  size: z.string().optional(),
-  refPurchasePrice: z.number().optional(),
-  refSellingPrice: z.number().min(0, 'Price must be positive'),
+  tradeName: requiredString(),
+  scientificName: requiredString(),
+  concentration: requiredString(),
+  size: requiredString(),
+  refPurchasePrice: z.number(),
+  refSellingPrice: z.number(),
   notes: z.string().optional(),
   tax: z.number().optional(),
   barcode: z.string().optional(),
-  productType: z.enum(['MASTER', 'PHARMACY']),
   requiresPrescription: z.boolean(),
-  type: z.string().optional(),
-  form: z.string().optional(),
-  manufacturer: z.string().min(1, 'Manufacturer is required'),
-  categories: z.array(z.string()),
+  typeId: z.number(),
+  formId: z.number(),
+  manufacturerId: z.number(),
+  productType: z.enum(['MASTER', 'PHARMACY']),
+  categoryIds: z.array(z.number()),
 });
 
 export const CATEGORY_SCHEMA = z.object({

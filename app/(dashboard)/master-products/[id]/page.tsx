@@ -21,22 +21,23 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { MASTER_PRODUCT_SCHEMA } from '@/lib/schema';
 import { categoryOptions, masterProductDefaultValues } from '@/lib/init';
+import ManufacturerSelect from '@/components/sys/manufacturer-select';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
-  
+
   type FormData = z.infer<typeof MASTER_PRODUCT_SCHEMA>;
 
   const form = useForm<FormData>({
     resolver: zodResolver(MASTER_PRODUCT_SCHEMA),
-    defaultValues: masterProductDefaultValues
+    defaultValues: masterProductDefaultValues,
   });
 
   const { data: masterProduct } = useQuery({
     queryKey: ['master-product', id],
     queryFn: () => api(`/master_products/${id}`),
-    enabled: id !== 'create'
+    enabled: id !== 'create',
   });
 
   useEffect(() => {
@@ -52,7 +53,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const actions = (
     <>
       <div className='flex items-center gap-2 mt-4'>
-        <Button variant='ghost' onClick={goBack}>Cancel</Button>
+        <Button variant='ghost' onClick={goBack}>
+          Cancel
+        </Button>
         <Button>Save</Button>
       </div>
     </>
@@ -109,16 +112,16 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <div className=''>
                 <FormField
                   control={form.control}
-                  name='manufacturer'
+                  name='manufacturerId'
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Manufacturer</FormLabel>
-                      <FormControl>
-                        <Input placeholder='Manufacturer' {...field} />
-                      </FormControl>
-                    </FormItem>
+                    <ManufacturerSelect
+                      {...field}
+                      onChange={(val: any) =>
+                        form.setValue('manufacturerId', val)
+                      }
+                    />
                   )}
-                />
+                ></FormField>
               </div>
 
               <div className=''>
@@ -134,7 +137,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           step='0.01'
                           placeholder='0.00'
                           {...field}
-                          onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                          onChange={(e) =>
+                            field.onChange(parseFloat(e.target.value) || 0)
+                          }
                         />
                       </FormControl>
                     </FormItem>
@@ -146,18 +151,18 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <div className='col-span-2'>
                 <FormField
                   control={form.control}
-                  name='categories'
+                  name='categoryIds'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Categories</FormLabel>
                       <FormControl>
-                        <BaseMultipleSelect
+                        {/* <BaseMultipleSelect
                           options={categoryOptions}
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                           placeholder='Select categories'
                           maxCount={3}
-                        />
+                        /> */}
                       </FormControl>
                     </FormItem>
                   )}
@@ -178,9 +183,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                         />
                       </FormControl>
                       <div className='space-y-1 leading-none'>
-                        <FormLabel>
-                          Requires Prescription
-                        </FormLabel>
+                        <FormLabel>Requires Prescription</FormLabel>
                       </div>
                     </FormItem>
                   )}
@@ -192,4 +195,4 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       </BasePageDialog>
     </>
   );
-} 
+}

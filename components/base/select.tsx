@@ -15,7 +15,8 @@ type PropsInterface =
     itemValue?: string
     loading?: boolean
     label: string
-    onChange: () => void
+    value?: any
+    onChange: (val: any) => void
   }
 
 export function BaseSelect({
@@ -25,8 +26,10 @@ export function BaseSelect({
   loading,
   onChange,
   label,
+  value,
   ...props
 }: PropsInterface) {
+
   return (
     <>
       <Select onValueChange={onChange} {...props}>
@@ -36,11 +39,11 @@ export function BaseSelect({
             props.className + ' ' + (props.fullWidth ? 'w-full' : 'w-48')
           }
         >
-          <SelectValue placeholder={props.placeholder} />
+          <SelectValue placeholder={props.placeholder} >{ value || '' }</SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {items.length ? (
+            {items?.length ? (
               items.map(item => (
                 <SelectItem key={item[itemValue]} value={item[itemValue]}>
                   {item[itemText]}
