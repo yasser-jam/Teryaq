@@ -39,7 +39,7 @@ export const api = async function (
       url: optimizeUrl(url),
       method: options.method || 'GET',
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: token ? `Bearer ${token}` : undefined
       },
       params: options.params, // Axios handles URLSearchParams internally
       data: options.body, // Axios uses `data` instead of `body`
