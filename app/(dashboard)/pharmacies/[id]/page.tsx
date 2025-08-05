@@ -31,7 +31,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     defaultValues: {
       pharmacyName: '',
       licenseNumber: '',
-      email: '',
       phoneNumber: '',
       managerPassword: '',
     },
@@ -46,6 +45,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { mutate: create, isPending } = useMutation({
     mutationFn: (data: formData) =>
       api(`/admin/pharmacies`, { method: 'POST', body: data }),
+    onSuccess: () => {
+      router.replace('/pharmacies');
+    },
   });
 
   useEffect(() => {
@@ -75,7 +77,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className='grid grid-cols-2 items-center gap-4'>
-              <div className='col-span-2'>
+              {/* <div className='col-span-2'>
                 <FormField
                   control={form.control}
                   name='email'
@@ -91,7 +93,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     </FormItem>
                   )}
                 />
-              </div>
+              </div> */}
               <div className=''>
                 <FormField
                   control={form.control}
