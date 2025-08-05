@@ -68,7 +68,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         },
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: ['categories-list'] });
       successToast('Category created successfully');
       goBack();
     },
@@ -90,7 +90,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         },
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: ['categories-list'] });
       successToast('Category updated successfully');
       goBack();
     },
