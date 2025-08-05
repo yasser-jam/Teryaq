@@ -8,6 +8,7 @@ export const PHARMACY_SCHEMEA = z.object({
     pharmacyName: requiredString(),
     licenseNumber: requiredString(),
     phoneNumber: requiredString(),
+    email: requiredString().email(),
     managerPassword: requiredString(),
 })
 

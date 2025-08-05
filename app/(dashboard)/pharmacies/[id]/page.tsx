@@ -18,12 +18,12 @@ import {
 } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, use } from 'react';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  
+
   type formData = z.infer<typeof PHARMACY_SCHEMEA>;
 
   const form = useForm<formData>({
@@ -31,43 +31,38 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     defaultValues: {
       pharmacyName: '',
       licenseNumber: '',
+      email: '',
       phoneNumber: '',
       managerPassword: '',
-    }
+    },
   });
 
   const { data: pharmacy } = useQuery({
     queryKey: ['pharmacy', id],
     queryFn: () => api(`/pharmacy/${id}`),
-    enabled: id != 'create'
-  })
+    enabled: id != 'create',
+  });
+
+  const { mutate: create, isPending } = useMutation({
+    mutationFn: (data: formData) =>
+      api(`/admin/pharmacies`, { method: 'POST', body: data }),
+  });
 
   useEffect(() => {
     if (pharmacy) {
-      form.reset(pharmacy)
+      form.reset(pharmacy);
     }
-  }, [pharmacy])
+  }, [pharmacy]);
 
   const goBack = () => {
-    router.replace('/pharmacies')
-  }
-
-  const actions = (
-    <>
-      <div className='flex items-center gap-2 mt-4'>
-        <Button variant='ghost' onClick={goBack}>Cancel</Button>
-        <Button>Save</Button>
-      </div>
-    </>
-  );
-
-  const onSubmit = async (data: formData) => {
-    console.log('hello');
-    console.log(data);
+    router.replace('/pharmacies');
   };
 
+  const onSubmit = (data: formData) => {
+    create(data);
+  };
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <>
@@ -75,12 +70,28 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         title='Pharmacy Details'
         subtitle='Fill Pharmacy Data'
         className='w-[700px]'
-        footer={actions}
         onOpenChange={goBack}
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='grid grid-cols-2 items-center gap-4'> 
+            <div className='grid grid-cols-2 items-center gap-4'>
+              <div className='col-span-2'>
+                <FormField
+                  control={form.control}
+                  name='email'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pharmacy Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder='Pharmacy Manager Email'
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
               <div className=''>
                 <FormField
                   control={form.control}
@@ -145,6 +156,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                   )}
                 />
               </div>
+            </div>
+            <div className='flex items-center gap-2 mt-4 justify-end'>
+              <Button variant='ghost' onClick={goBack}>
+                Cancel
+              </Button>
+              <Button loading={isPending}>Save</Button>
             </div>
           </form>
         </Form>
