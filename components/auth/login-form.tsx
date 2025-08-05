@@ -56,7 +56,7 @@ export default function LoginForm() {
         <div className='flex items-center justify-center'>
           <div className='w-16 h-16 bg-primary rounded-xl flex items-center justify-center'>
             <span className='text-2xl font-bold text-primary-foreground'>
-              L
+              TQ
             </span>
           </div>
         </div>
