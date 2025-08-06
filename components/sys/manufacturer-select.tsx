@@ -18,10 +18,15 @@ export default function ManufacturerSelect({
 
   return (
     <>
+      <div className='text-sm text-gray-500'>Select Manufacturer</div>
       <BaseSelect
         items={items}
         label="Manufacturer"
+        itemText='name'
+        itemValue='id'
         onChange={onChange}
+        fullWidth
+        className='mt-1'
         value={props.value || ''}
         placeholder='Select Manufacturer'
       />

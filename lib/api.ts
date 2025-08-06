@@ -50,7 +50,7 @@ export const api = async function (
     const status = err?.response?.status
     const message = err?.response?.data?.message || 'Something went wrong'
 
-    if (status === 401 && window?.location?.pathname !== '/login') {
+    if (status === 401 && window?.location?.pathname !== '/auth/login') {
       // clear credentials
       Cookies.remove('t.access-token')
 

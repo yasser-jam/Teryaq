@@ -7,6 +7,7 @@ import {
     SelectTrigger,
     SelectValue
 } from '../ui/select'
+import { useEffect, useState } from 'react'
 
 type PropsInterface =
   SelectProps & {
@@ -30,22 +31,29 @@ export function BaseSelect({
   ...props
 }: PropsInterface) {
 
+  const [valueName, setValueName] = useState('')
+
+  useEffect(() => {
+    setValueName(items?.find(item => item[itemValue] === value)?.[itemText] || '')
+    console.log(valueName, value);
+  }, [value])
+
   return (
     <>
-      <Select onValueChange={onChange} {...props}>
+      <Select onValueChange={onChange} value={value}>
         <SelectTrigger
           size={props.size}
           className={
             props.className + ' ' + (props.fullWidth ? 'w-full' : 'w-48')
           }
         >
-          <SelectValue placeholder={props.placeholder} >{ value || '' }</SelectValue>
+          <SelectValue placeholder={props.placeholder} ></SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             {items?.length ? (
               items.map(item => (
-                <SelectItem key={item[itemValue]} value={item[itemValue]}>
+                <SelectItem key={item[itemValue]} value={item[itemValue].toString()}>
                   {item[itemText]}
                 </SelectItem>
               ))
