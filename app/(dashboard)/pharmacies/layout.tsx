@@ -18,6 +18,8 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import BaseSkeleton from '@/components/base/base-skeleton';
+import BaseNotFound from '@/components/base/base-not-found';
 
 export default function PharmaciesLayout({
   children,
@@ -73,10 +75,11 @@ export default function PharmaciesLayout({
     },
   ];
 
-  const { data: pharamacies } = useQuery({
+  const { data: pharamacies, isFetching } = useQuery({
     queryKey: ['pharmacies-list'],
     queryFn: () => api('/pharmacy/all'),
   });
+
 
   return (
     <>
@@ -92,7 +95,17 @@ export default function PharmaciesLayout({
           </Button>
         </div>
 
-        <BaseTable columns={columns} data={pharamacies || []} />
+        {isFetching ? (
+          <BaseSkeleton className='w-full h-[250px] rounded-xl' />
+        ) : true ? (
+          <BaseNotFound item='Pharmacies'>
+            <Button onClick={() => router.replace('/pharmacies/create')}>
+              Add New Pharmacy
+            </Button>
+          </BaseNotFound>
+        ) : (
+          <BaseTable columns={columns} data={pharamacies || []} />
+        )}
       </div>
 
       {children}

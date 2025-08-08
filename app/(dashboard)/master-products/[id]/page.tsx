@@ -161,7 +161,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           onValueChange={field.onChange}
                           placeholder='Select categories'
                           maxCount={3}
-                          defaultValue={field.value.map(String)}
+                          defaultValue={field?.value?.map(String)}
                         />
                       </FormControl>
                     </FormItem>
