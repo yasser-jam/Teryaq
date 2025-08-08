@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,13 +28,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   type formData = z.infer<typeof PHARMACY_SCHEMEA>;
 
   const form = useForm<formData>({
-    resolver: zodResolver(PHARMACY_SCHEMEA),
-    defaultValues: {
-      pharmacyName: '',
-      licenseNumber: '',
-      phoneNumber: '',
-      managerPassword: '',
-    },
+    resolver: zodResolver(PHARMACY_SCHEMEA)
   });
 
   const { data: pharmacy } = useQuery({
@@ -94,7 +89,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                   )}
                 />
               </div> */}
-              <div className=''>
+              <div className='col-span-2'>
                 <FormField
                   control={form.control}
                   name='pharmacyName'
@@ -110,7 +105,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 ></FormField>
               </div>
 
-              <div className=''>
+              <div className='col-span-2'>
                 <FormField
                   control={form.control}
                   name='licenseNumber'
@@ -120,6 +115,10 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <FormControl>
                         <Input placeholder='License Number' {...field} />
                       </FormControl>
+
+                      <FormDescription>
+                        This is the license number of the pharmacy.
+                      </FormDescription>
                     </FormItem>
                   )}
                 />
