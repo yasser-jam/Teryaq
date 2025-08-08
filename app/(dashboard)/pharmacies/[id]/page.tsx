@@ -16,11 +16,13 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, use } from 'react';
+import BasePasswordInput from '@/components/base/base-password-input';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -71,25 +73,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='grid grid-cols-2 items-center gap-4'>
-              {/* <div className='col-span-2'>
-                <FormField
-                  control={form.control}
-                  name='email'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Pharmacy Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder='Pharmacy Manager Email'
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div> */}
-              <div className='col-span-2'>
+            <div className='grid grid-cols-1 items-center gap-4'>
+              <div className=''>
                 <FormField
                   control={form.control}
                   name='pharmacyName'
@@ -100,12 +85,14 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <FormControl>
                         <Input placeholder='Pharmacy Name' {...field}></Input>
                       </FormControl>
+
+                      <FormMessage />
                     </FormItem>
                   )}
                 ></FormField>
               </div>
 
-              <div className='col-span-2'>
+              <div className=''>
                 <FormField
                   control={form.control}
                   name='licenseNumber'
@@ -119,6 +106,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <FormDescription>
                         This is the license number of the pharmacy.
                       </FormDescription>
+                    
+                      <FormMessage />
+                    
                     </FormItem>
                   )}
                 />
@@ -134,6 +124,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <FormControl>
                         <BasePhoneInput {...field} />
                       </FormControl>
+                      <FormMessage />
+                    
                     </FormItem>
                   )}
                 />
@@ -147,12 +139,10 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     <FormItem>
                       <FormLabel>Manager Password</FormLabel>
                       <FormControl>
-                        <Input
-                          type='password'
-                          placeholder='********'
-                          {...field}
-                        />
+                        <BasePasswordInput {...field} />
                       </FormControl>
+                      <FormMessage />
+                    
                     </FormItem>
                   )}
                 />
@@ -162,7 +152,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <Button variant='ghost' onClick={goBack}>
                 Cancel
               </Button>
-              <Button loading={isPending}>Save</Button>
+              <Button loading={isPending} disabled={!form.formState.isValid || isPending}>Save</Button>
             </div>
           </form>
         </Form>

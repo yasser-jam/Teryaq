@@ -1,15 +1,33 @@
 import z from "zod";
 
+
+
 const requiredString = () => {
-    return z.string().min(1, 'This field is required').trim()
+    return z.string().trim().min(1, 'This field is required')
 }
+
+const passwordSchema = z
+  .string()
+  .min(8, "Password must be at least 8 characters long")
+  .refine(
+    (password) => {
+      const hasNumber = /[0-9]/.test(password);
+      const hasUppercase = /[A-Z]/.test(password);
+      const hasSpecialChar = /[^a-zA-Z0-9]/.test(password);
+      
+      return hasNumber && hasUppercase && hasSpecialChar;
+    },
+    {
+      message: "Password must contain at least one number, one uppercase letter, and one special character",
+    }
+  );
 
 export const PHARMACY_SCHEMEA = z.object({
     pharmacyName: requiredString(),
     licenseNumber: requiredString(),
     phoneNumber: requiredString(),
     // email: requiredString().email(),
-    managerPassword: requiredString(),
+    managerPassword: passwordSchema,
 })
 
 export const MASTER_PRODUCT_SCHEMA = z.object({
