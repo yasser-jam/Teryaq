@@ -97,14 +97,14 @@ export default function PharmaciesLayout({
 
         {isFetching ? (
           <BaseSkeleton className='w-full h-[250px] rounded-xl' />
-        ) : !isFetching && !pharmacies?.length ? (
+        ) : !isFetching && !pharamacies?.length ? (
           <BaseNotFound item='Pharmacies'>
             <Button onClick={() => router.replace('/pharmacies/create')}>
               Add New Pharmacy
             </Button>
           </BaseNotFound>
         ) : (
-          <BaseTable columns={columns} data={pharamacies || []} />
+          <BaseTable columns={columns} data={pharamacies || []} hidePagination />
         )}
       </div>
 

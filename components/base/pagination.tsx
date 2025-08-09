@@ -132,16 +132,18 @@ export default function BasePagination({
       <div className="flex gap-4 items-center">
         <Pagination>
           <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => handlePageChange(page - 1)}
-                className={
-                  page === 1
-                    ? 'pointer-events-none opacity-50'
-                    : 'cursor-pointer'
-                }
-              />
-            </PaginationItem>
+            {totalPages > 1 && (
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => handlePageChange(page - 1)}
+                  className={
+                    page === 1
+                      ? 'pointer-events-none opacity-50'
+                      : 'cursor-pointer'
+                  }
+                />
+              </PaginationItem>
+            )}
 
             {visiblePages.map((pageNum, index) => (
               <PaginationItem key={index}>
@@ -160,16 +162,18 @@ export default function BasePagination({
                 )}
               </PaginationItem>
             ))}
-            <PaginationItem>
-              <PaginationNext
-                onClick={() => handlePageChange(page + 1)}
-                className={
-                  page === totalPages
-                    ? 'pointer-events-none opacity-50'
-                    : 'cursor-pointer'
-                }
-              />
-            </PaginationItem>
+            {totalPages > 1 && (
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => handlePageChange(page + 1)}
+                  className={
+                    page === totalPages
+                      ? 'pointer-events-none opacity-50'
+                      : 'cursor-pointer'
+                  }
+                />
+              </PaginationItem>
+            )}
           </PaginationContent>
         </Pagination>
       </div>
