@@ -4,7 +4,6 @@ import BaseTitle from '@/components/base/title';
 import { Button } from '@/components/ui/button';
 import BaseTable from '@/components/base/table';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import ActionMenu from '@/components/base/action-menu';
 import type { Pharmacy } from '@/types';
 import { MoreVert } from 'iconoir-react';
 
@@ -56,22 +55,6 @@ export default function PharmaciesLayout({
     {
       header: 'Manager Email',
       accessorKey: 'managerEmail',
-    },
-    {
-      header: 'Actions',
-      id: 'actions',
-      cell: ({ row }) => (
-        <ActionMenu
-          toggler={
-            <Button variant='ghost' size='icon'>
-              <MoreVert />
-            </Button>
-          }
-          editAction
-          deleteAction
-          onEdit={() => router.push(`/pharmacies/${row.original.id}`)}
-        />
-      ), // Add handlers as needed
     },
   ];
 
