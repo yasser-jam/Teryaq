@@ -97,7 +97,7 @@ export default function PharmaciesLayout({
 
         {isFetching ? (
           <BaseSkeleton className='w-full h-[250px] rounded-xl' />
-        ) : true ? (
+        ) : !isFetching && !pharmacies?.length ? (
           <BaseNotFound item='Pharmacies'>
             <Button onClick={() => router.replace('/pharmacies/create')}>
               Add New Pharmacy
