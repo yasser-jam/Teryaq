@@ -8,41 +8,41 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { successToast } from '@/lib/toast';
 import { setCookie } from '@/lib/utils';
 
+import BasePasswordInput from '@/components/base/base-password-input';
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
-  const router = useRouter()
+  const router = useRouter();
 
   const submitMutation = useMutation({
     mutationKey: ['login'],
-    mutationFn: () => api('/admin/login', {
-      method: 'POST',
-      body: {
-        email,
-        password
-      }
-    }),
+    mutationFn: () =>
+      api('/admin/login', {
+        method: 'POST',
+        body: {
+          email,
+          password,
+        },
+      }),
     onSuccess(response) {
-      successToast('Logged in Successfully')
-      setCookie('t.access-token', response.token)
-      router.push('/')
-    }
-  })
+      successToast('Logged in Successfully');
+      setCookie('t.access-token', response.token);
+      router.push('/');
+    },
+  });
 
   const handleSubmit = (e: any) => {
-    e.preventDefault()
-    submitMutation.mutate()
+    e.preventDefault();
+    submitMutation.mutate();
   };
 
   const togglePasswordVisibility = () => {
@@ -76,18 +76,16 @@ export default function LoginForm() {
           <Label htmlFor='email' className='text-sm font-medium'>
             Email
           </Label>
-          <div className='relative'>
-            <Smartphone className='absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4' />
-            <Input
-              id='email'
-              type='tel'
-              placeholder='Enter your email'
-              value={email}
-              onChange={(e) => setEmail(String(e.target.value))}
-              className='pl-10'
-              required
-            />
-          </div>
+
+          <Input
+            id='email'
+            type='tel'
+            prefix={<Smartphone />}
+            placeholder='Enter your email'
+            value={email}
+            onChange={(e) => setEmail(String(e.target.value))}
+            required
+          />
         </div>
 
         {/* Password Field */}
@@ -95,32 +93,12 @@ export default function LoginForm() {
           <Label htmlFor='password' className='text-sm font-medium'>
             Password
           </Label>
-          <div className='relative'>
-            <Lock className='absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4' />
-            <Input
-              id='password'
-              type={showPassword ? 'text' : 'password'}
-              placeholder='Enter your password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className='pl-10 pr-10'
-              required
-            />
-            <Button
-              type='button'
-              variant='ghost'
-              size='sm'
-              className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent'
-              onClick={togglePasswordVisibility}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-            >
-              {showPassword ? (
-                <EyeOff className='h-4 w-4 text-muted-foreground' />
-              ) : (
-                <Eye className='h-4 w-4 text-muted-foreground' />
-              )}
-            </Button>
-          </div>
+
+          <BasePasswordInput
+            id='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
 
         {/* Forgot Password */}
@@ -135,7 +113,12 @@ export default function LoginForm() {
         </div>
 
         {/* Login Button */}
-        <Button type='submit' loading={submitMutation.isPending} className='w-full' size='lg'>
+        <Button
+          type='submit'
+          loading={submitMutation.isPending}
+          className='w-full'
+          size='lg'
+        >
           Sign In
         </Button>
       </form>

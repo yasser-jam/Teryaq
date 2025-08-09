@@ -13,6 +13,7 @@ export default function BasePasswordInput(props: PropsInterface) {
       <Input
         id="password"
         type={showPassword ? 'text' : 'password'}
+        placeholder="********"
         prefix={<Lock />}
         suffix={
           !showPassword ? (
