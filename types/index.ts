@@ -60,6 +60,11 @@ export interface Type {
   name: string;
 }
 
+export interface Form {
+  id: number;
+  name: string;
+}
+
 export interface Manufacturer {
   id: number;
   name: string;

@@ -51,11 +51,6 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: 'Employees',
-      url: '/employees',
-      icon: IconUsers,
-    },
-    {
       title: 'Pharmacies',
       url: '/pharmacies',
       icon: IconDatabase,
@@ -73,6 +68,11 @@ const data = {
     {
       title: 'Types',
       url: '/types',
+      icon: IconDatabase,
+    },
+    {
+      title: 'Forms',
+      url: '/forms',
       icon: IconDatabase,
     },
     {

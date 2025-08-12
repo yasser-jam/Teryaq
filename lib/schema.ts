@@ -58,6 +58,11 @@ export const TYPE_SCHEMA = z.object({
   name_ar: requiredString(),
 });
 
+export const FORM_SCHEMA = z.object({
+  name: requiredString(),
+  name_ar: requiredString(),
+});
+
 export const MANUFACTURER_SCHEMA = z.object({
   name: requiredString(),
   name_ar: requiredString(),
