@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, use } from 'react';
 import BasePasswordInput from '@/components/base/base-password-input';
 
@@ -39,10 +39,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     enabled: id != 'create',
   });
 
+  const queryClient = useQueryClient()
+
   const { mutate: create, isPending } = useMutation({
     mutationFn: (data: formData) =>
       api(`/admin/pharmacies`, { method: 'POST', body: data }),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['pharmacies-list'] })
       router.replace('/pharmacies');
     },
   });
