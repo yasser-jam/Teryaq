@@ -48,7 +48,7 @@ export default function BasePageDialog({
             </DialogHeader>
           )}
 
-          <div className=''>{children}</div>
+          <div className='max-h-[450px] overflow-auto'>{children}</div>
 
           {footer && (
             <DialogFooter >{footer}</DialogFooter>

@@ -1,6 +1,5 @@
-// src/components/multi-select.tsx
+import { forwardRef, useState } from 'react'
 
-import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import {
   CheckIcon,
@@ -124,7 +123,7 @@ export interface MultiSelectProps
   loading?: boolean
 }
 
-export const BaseMultipleSelect = React.forwardRef<
+export const BaseMultipleSelect = forwardRef<
   HTMLButtonElement,
   MultiSelectProps
 >(
@@ -147,9 +146,9 @@ export const BaseMultipleSelect = React.forwardRef<
     ref
   ) => {
     const [selectedValues, setSelectedValues] =
-      React.useState<string[]>(defaultValue)
-    const [isPopoverOpen, setIsPopoverOpen] = React.useState(false)
-    const [isAnimating, setIsAnimating] = React.useState(false)
+      useState<string[]>(defaultValue)
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+    const [isAnimating, setIsAnimating] = useState(false)
 
     const handleInputKeyDown = (
       event: React.KeyboardEvent<HTMLInputElement>
@@ -209,7 +208,7 @@ export const BaseMultipleSelect = React.forwardRef<
             {...props}
             onClick={handleTogglePopover}
             className={cn(
-              'flex w-full px-3 rounded-md border h-9 items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto',
+              'flex w-full px-3 rounded-md border min-h-11 h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto!',
               className
             )}
           >
@@ -235,6 +234,7 @@ export const BaseMultipleSelect = React.forwardRef<
                         <XCircle
                           className="ml-2 h-4 w-4 cursor-pointer"
                           onClick={event => {
+                            event.preventDefault()
                             event.stopPropagation()
                             toggleOption(value)
                           }}

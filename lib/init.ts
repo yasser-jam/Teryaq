@@ -1,16 +1,3 @@
-export const categoryOptions = [
-  { label: 'Antibiotics', value: 'antibiotics' },
-  { label: 'Pain Relief', value: 'pain-relief' },
-  { label: 'Vitamins', value: 'vitamins' },
-  { label: 'Supplements', value: 'supplements' },
-  { label: 'Prescription', value: 'prescription' },
-  { label: 'OTC', value: 'otc' },
-  { label: 'Cardiovascular', value: 'cardiovascular' },
-  { label: 'Respiratory', value: 'respiratory' },
-  { label: 'Digestive', value: 'digestive' },
-  { label: 'Neurological', value: 'neurological' },
-];
-
 export const masterProductDefaultValues = {
   tradeName: '',
   scientificName: '',
@@ -23,8 +10,8 @@ export const masterProductDefaultValues = {
   barcode: '',
   productType: 'MASTER' as const,
   requiresPrescription: false,
-  type: '',
-  form: '',
-  manufacturer: '',
+  typeId: 0,
+  formId: 0,
+  manufacturerId: 0,
   categories: [],
 }; 

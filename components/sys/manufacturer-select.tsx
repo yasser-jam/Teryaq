@@ -5,10 +5,12 @@ import { BaseSelect } from '../base/select';
 interface ManufacturerSelectProps {
   value: any;
   onChange: (val: any) => void;
+  className?: string;
 }
 
 export default function ManufacturerSelect({
   onChange,
+  className,
   ...props
 }: ManufacturerSelectProps) {
   const { data: items } = useQuery({
@@ -16,20 +18,19 @@ export default function ManufacturerSelect({
     queryFn: () => api('/manufacturers'),
   });
 
+  const getValue = () => {
+    props.value
+  }
+
   return (
-    <>
-      <div className='text-sm text-gray-500'>Select Manufacturer</div>
-      <BaseSelect
-        items={items}
-        label="Manufacturer"
-        itemText='name'
-        itemValue='id'
-        onChange={onChange}
-        fullWidth
-        className='mt-1'
-        value={props.value || ''}
-        placeholder='Select Manufacturer'
-      />
-    </>
+    <BaseSelect
+      items={items}
+      label="Manufacturer"
+      onChange={onChange}
+      fullWidth
+      className={className}
+      value={props.value || ''}
+      placeholder='Select Manufacturer'
+    />
   );
 }

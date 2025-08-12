@@ -39,7 +39,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const handleOnChange = (event: any) => {
-      props.onChange?.(event)
+      // @ts-ignore
+      type == 'number' ? props.onChange?.(Number(event.target.value)) : props.onChange?.(event.target.value)
       if (!event.target.value) onClear?.()
     }
 

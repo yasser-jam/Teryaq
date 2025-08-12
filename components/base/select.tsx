@@ -34,13 +34,13 @@ export function BaseSelect({
   const [valueName, setValueName] = useState('')
 
   useEffect(() => {
-    setValueName(items?.find(item => item[itemValue] === value)?.[itemText] || '')
+    setValueName(items?.find(item => item[itemValue] == value)?.[itemText] || '')
     console.log(valueName, value);
   }, [value])
 
   return (
     <>
-      <Select onValueChange={onChange} value={value}>
+      <Select {...props} onValueChange={onChange} value={value}>
         <SelectTrigger
           size={props.size}
           className={
