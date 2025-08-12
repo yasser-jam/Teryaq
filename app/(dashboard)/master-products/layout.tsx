@@ -12,7 +12,7 @@ import { MoreVert } from 'iconoir-react';
 
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 
 export default function MasterProductsLayout({
@@ -21,6 +21,7 @@ export default function MasterProductsLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+
 
   const columns: ColumnDef<MasterProduct>[] = [
     {
@@ -92,15 +93,25 @@ export default function MasterProductsLayout({
           editAction
           deleteAction
           onEdit={() => router.push(`/master-products/${row.original.id}`)}
+          onDelete={() => remove(Number(row.original.id))}
         />
       ),
     },
   ];
 
-  const { data: masterProducts } = useQuery({
+  const { data: masterProducts, refetch } = useQuery({
     queryKey: ['master-products-list'],
     queryFn: () => api('/master_products'),
   });
+
+  const {mutate: remove} = useMutation({
+    mutationFn: (id: number) => api(`/master_products/${id}`, {
+      method: 'DELETE',
+    }),
+    onSuccess: () => {
+      refetch()
+    }
+  })
 
   return (
     <>
