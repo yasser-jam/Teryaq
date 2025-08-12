@@ -58,11 +58,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         method: 'POST',
         body: {
           name: data.name,
-          languageCode: 'en',
+          lang: 'en',
           translations: [
             {
               name: data.name_ar,
-              languageCode: 'ar',
+              lang: 'ar',
             },
           ],
         },
@@ -80,11 +80,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         method: 'PUT',
         body: {
           name: data.name,
-          languageCode: 'en',
+          lang: 'en',
           translations: [
             {
               name: data.name_ar,
-              languageCode: 'ar',
+              lang: 'ar',
             },
           ],
         },
