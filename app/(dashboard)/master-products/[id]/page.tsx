@@ -301,7 +301,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                               : 0
                           }
                           onChange={(e) =>
-                            field.onChange(parseFloat(e.target.value) || 0)
+                            field.onChange(parseFloat(e) || 0)
                           }
                         />
                       </FormControl>

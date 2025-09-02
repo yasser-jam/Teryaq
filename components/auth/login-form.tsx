@@ -83,7 +83,7 @@ export default function LoginForm() {
             prefix={<Smartphone />}
             placeholder='Enter your email'
             value={email}
-            onChange={(e) => setEmail(String(e.target.value))}
+            onChange={(e) => setEmail(String(e))}
             required
           />
         </div>
@@ -97,7 +97,7 @@ export default function LoginForm() {
           <BasePasswordInput
             id='password'
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e)}
           />
         </div>
 
