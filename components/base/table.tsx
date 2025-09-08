@@ -27,7 +27,7 @@ import BasePagination from '@/components/base/pagination'
 interface PropsInterface {
   columns: ColumnDef<any>[]
   data: any[]
-  pagination?: Pagination
+  pagination?: any
   className?: string
   hidePagination?: boolean
   onPaginationChange?: (pagination: Pagination) => void

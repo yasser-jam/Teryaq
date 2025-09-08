@@ -43,7 +43,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { data: masterProduct } = useQuery({
     queryKey: ['master-product', id],
     queryFn: () => api(`/master_products/${id}`),
-    enabled: id !== 'create',    
+    enabled: id !== 'create',
   });
 
 
@@ -111,13 +111,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className='grid grid-cols-2 items-center gap-4'>
               {/* Basic Product Information */}
-              <div className='col-span-2'>
+              <div>
                 <FormField
                   control={form.control}
                   name='tradeName'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Trade Name</FormLabel>
+                      <FormLabel>Trade Name (en) *</FormLabel>
                       <FormControl>
                         <Input placeholder='Trade Name' {...field} />
                       </FormControl>
@@ -125,15 +125,49 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     </FormItem>
                   )}
                 />
+
               </div>
 
-              <div className='col-span-2'>
+              <div>
+                <FormField
+                  control={form.control}
+                  name='tradeNameAr'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Trade Name (ar) *</FormLabel>
+                      <FormControl>
+                        <Input placeholder='Trade Name (ar)' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className=''>
                 <FormField
                   control={form.control}
                   name='scientificName'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Scientific Name</FormLabel>
+                      <FormLabel>Scientific Name (en) *</FormLabel>
+                      <FormControl>
+                        <Input placeholder='Scientific Name' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+              </div>
+
+              <div>
+                <FormField
+                  control={form.control}
+                  name='scientificNameAr'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Scientific Name (ar) *</FormLabel>
                       <FormControl>
                         <Input placeholder='Scientific Name' {...field} />
                       </FormControl>
@@ -149,7 +183,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                   name='concentration'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Concentration</FormLabel>
+                      <FormLabel>Concentration *</FormLabel>
                       <FormControl>
                         <Input placeholder='e.g. 500 mg' {...field} />
                       </FormControl>
@@ -165,7 +199,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                   name='size'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Size</FormLabel>
+                      <FormLabel>Size *</FormLabel>
                       <FormControl>
                         <Input placeholder='e.g. 30 tablets' {...field} />
                       </FormControl>
@@ -181,7 +215,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                   name='manufacturerId'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Manufacturer</FormLabel>
+                      <FormLabel>Manufacturer *</FormLabel>
                       <FormControl>
                         <ManufacturerSelect second-value {...field} />
                       </FormControl>

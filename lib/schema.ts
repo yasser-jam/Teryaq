@@ -32,7 +32,9 @@ export const PHARMACY_SCHEMEA = z.object({
 
 export const MASTER_PRODUCT_SCHEMA = z.object({
   tradeName: requiredString(),
+  tradeNameAr: requiredString(),
   scientificName: requiredString(),
+  scientificNameAr: requiredString(),
   concentration: requiredString(),
   size: requiredString(),
   refPurchasePrice: z.number(),

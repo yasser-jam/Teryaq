@@ -7,13 +7,14 @@ import { Badge } from '@/components/ui/badge';
 import { BadgeGroup } from '@/components/ui/badge-group';
 import ActionMenu from '@/components/base/action-menu';
 import { BaseMultipleSelect } from '@/components/base/multiple-select';
-import type { MasterProduct } from '@/types';
+import type { MasterProduct, Pagination } from '@/types';
 import { MoreVert } from 'iconoir-react';
 
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { useEffect, useState } from 'react';
 
 export default function MasterProductsLayout({
   children,
@@ -57,8 +58,8 @@ export default function MasterProductsLayout({
       cell: ({ row }) => {
         const categories = row.original.categories;
         return (
-          <BadgeGroup 
-            items={categories} 
+          <BadgeGroup
+            items={categories}
             maxVisible={2}
             emptyText="No categories"
           />
@@ -71,7 +72,7 @@ export default function MasterProductsLayout({
       cell: ({ row }) => {
         const requiresPrescription = row.original.requiresPrescription;
         return (
-          <Badge 
+          <Badge
             variant={requiresPrescription ? 'destructive' : 'secondary'}
             className='text-xs'
           >
@@ -90,7 +91,7 @@ export default function MasterProductsLayout({
               <MoreVert />
             </Button>
           }
-          editAction
+          editAction={false}
           deleteAction
           onEdit={() => router.push(`/master-products/${row.original.id}`)}
           onDelete={() => remove(Number(row.original.id))}
@@ -99,12 +100,30 @@ export default function MasterProductsLayout({
     },
   ];
 
+  const [pagination, setPagination] = useState({
+    page: 0,
+    size: 10,
+    totalElements: 10
+  })
+
   const { data: masterProducts, refetch } = useQuery({
-    queryKey: ['master-products-list'],
-    queryFn: () => api('/master_products'),
+    queryKey: ['master-products-list', pagination.page],
+    queryFn: () => api('/master_products', {
+      params: {
+        page: pagination.page,
+        size: pagination.size
+      }
+    }),
   });
 
-  const {mutate: remove} = useMutation({
+  useEffect(() => {
+    setPagination((prev) => ({
+      ...prev,
+      totalElements: masterProducts?.totalElements || 20
+    }))
+  }, [masterProducts])
+
+  const { mutate: remove } = useMutation({
     mutationFn: (id: number) => api(`/master_products/${id}`, {
       method: 'DELETE',
     }),
@@ -127,7 +146,7 @@ export default function MasterProductsLayout({
           </Button>
         </div>
 
-        <BaseTable columns={columns} data={masterProducts?.content || []} />
+        <BaseTable columns={columns} data={masterProducts?.content || []} pagination={pagination} onPaginationChange={(data) => setPagination(data as any)} />
       </div>
 
       {children}
