@@ -29,6 +29,7 @@ import { masterProductDefaultValues } from '@/lib/init';
 import ManufacturerSelect from '@/components/sys/manufacturer-select';
 import CategoriesMultiSelect from '@/components/sys/categories-multi-select';
 import { Textarea } from '@/components/ui/textarea';
+import { successToast } from '@/lib/toast';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -38,6 +39,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   const form = useForm<FormData>({
     resolver: zodResolver(MASTER_PRODUCT_SCHEMA),
+    defaultValues: {
+      requiresPrescription: false
+    }
   });
 
   const { data: masterProduct } = useQuery({
@@ -63,22 +67,25 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         categoryIds: data.categories,
         notes: data.notes,
         barcode: data.barcode,
-        translations: {
-          tradeName: data.tradeName,
-          scientificName: data.scientificName,
-          lang: 'ar'
-        }
+        scientificNameAr: undefined,
+        tradeNameAr: undefined,
+        translations: [
+          {
+            tradeName: data.tradeNameAr,
+            scientificName: data.scientificNameAr,
+            lang: 'ar'
+          }
+        ]
       },
       method: 'POST'
     }),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['master-products-list'] })
-
+      successToast('Medicine added successfully')
       goBack()
 
     }
   })
-
 
   // Select data now handled in sys components
 
@@ -335,7 +342,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                               : 0
                           }
                           onChange={(e) =>
-                            field.onChange(parseFloat(e) || 0)
+                            field.onChange(parseFloat(e as any) || 0)
                           }
                         />
                       </FormControl>
@@ -345,7 +352,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 />
               </div>
 
-              <div>
+              <div className='col-span-2'>
                 <FormField
                   control={form.control}
                   name='barcode'
