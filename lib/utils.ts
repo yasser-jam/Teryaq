@@ -13,7 +13,7 @@ export const getCookie = (name: string) => {
 
 export const setCookie = (name: string, value: string) => {
   Cookies.set(name, value, {
-    secure: process.env.NODE_ENV == 'production',
+    secure: false, // Set to false for HTTP deployment
     sameSite: 'lax',
   });
 };
