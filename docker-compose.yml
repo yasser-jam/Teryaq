@@ -1,11 +1,11 @@
 services:
   # Next.js Frontend Application
-  teryaq-frontend:
+  teryaq-admin:
     build:
       context: .
       dockerfile: Dockerfile
-    image: teryaq-frontend
-    container_name: teryaq-frontend
+    image: teryaq-admin
+    container_name: teryaq-admin
     ports:
       - "3001:3000" # Frontend port
     environment:
