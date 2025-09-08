@@ -7,7 +7,7 @@ services:
     image: teryaq-frontend
     container_name: teryaq-frontend
     ports:
-      - "3000:3000" # Frontend port
+      - "3001:3000" # Frontend port
     environment:
       - NODE_ENV=production
       - NEXT_TELEMETRY_DISABLED=1

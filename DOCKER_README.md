@@ -14,7 +14,7 @@ This guide explains how to deploy the Teryaq Pharmacy Management System frontend
 
 This setup integrates with your existing backend infrastructure:
 
-- **teryaq-frontend**: Next.js frontend application (port 3000)
+- **teryaq-frontend**: Next.js frontend application (port 3001)
 - **teryaq-backend**: Your existing Spring Boot backend (port 13000)
 - **teryaq-db**: Your existing PostgreSQL database (port 15432)
 - **teryaq-net**: Shared Docker network
@@ -99,7 +99,7 @@ docker-compose -f docker-compose.dev.yml logs -f teryaq-frontend-dev
 
 ### Frontend Services
 
-- **teryaq-frontend**: Next.js frontend application (port 3000)
+- **teryaq-frontend**: Next.js frontend application (port 3001)
 - **teryaq-frontend-dev**: Development server with hot reload
 
 ### Backend Services (Existing)

@@ -15,7 +15,7 @@ REM Check if .env.production file exists
 if not exist .env.production (
     echo ⚠️  .env.production file not found. Creating basic configuration...
     echo NODE_ENV=production > .env.production
-    echo BASE_URL=http://localhost:3000 >> .env.production
+    echo BASE_URL=http://localhost:3001 >> .env.production
     echo NEXT_TELEMETRY_DISABLED=1 >> .env.production
     echo # Backend API URL - update with your actual backend URL >> .env.production
     echo NEXT_PUBLIC_API_URL=http://teryaq-backend:3000 >> .env.production
@@ -33,8 +33,8 @@ echo 🚀 Starting services...
 docker-compose up -d
 
 echo ✅ Deployment completed!
-echo 🌐 Application is running at: http://localhost:3000
-echo 📊 Health check: http://localhost:3000/api/health
+echo 🌐 Application is running at: http://localhost:3001
+echo 📊 Health check: http://localhost:3001/api/health
 
 REM Show logs
 echo 📋 Showing logs (press Ctrl+C to exit):

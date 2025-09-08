@@ -15,7 +15,7 @@ REM Check if .env.local file exists
 if not exist .env.local (
     echo ⚠️  .env.local file not found. Creating basic configuration...
     echo NODE_ENV=development > .env.local
-    echo BASE_URL=http://localhost:3000 >> .env.local
+    echo BASE_URL=http://localhost:3001 >> .env.local
     echo NEXT_TELEMETRY_DISABLED=1 >> .env.local
     echo # Backend API URL - update with your actual backend URL >> .env.local
     echo NEXT_PUBLIC_API_URL=http://teryaq-backend:3000 >> .env.local
@@ -33,7 +33,7 @@ echo 🚀 Starting development services...
 docker-compose -f docker-compose.dev.yml up -d
 
 echo ✅ Development deployment completed!
-echo 🌐 Application is running at: http://localhost:3000
+echo 🌐 Application is running at: http://localhost:3001
 echo 🔥 Hot reload is enabled for development
 
 REM Show logs

@@ -59,8 +59,8 @@ docker-compose -f docker-compose.nginx.yml up -d
 
 ## 🌐 Access Points
 
-- **Application**: http://localhost:3000
-- **Health Check**: http://localhost:3000/api/health
+- **Application**: http://localhost:3001
+- **Health Check**: http://localhost:3001/api/health
 - **With Nginx**: http://localhost (port 80)
 
 ## 🔍 Environment Variables
@@ -92,12 +92,12 @@ The deployment scripts will automatically create basic environment files:
    ```
 
 3. **Access your application**:
-   - Open http://localhost:3000 in your browser
+   - Open http://localhost:3001 in your browser
    - Check logs: `docker-compose logs -f`
 
 ## 🆘 Troubleshooting
 
-- **Port conflicts**: Change port 3000 in docker-compose files if needed
+- **Port conflicts**: Change port 3001 in docker-compose files if needed
 - **Backend connection**: Verify backend containers are running and accessible
 - **Network issues**: Check if `teryaq_teryaq-net` network exists
 - **Cookie issues**: Ensure BASE_URL matches your actual domain

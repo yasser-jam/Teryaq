@@ -15,7 +15,7 @@ if [ ! -f .env.local ]; then
     echo "⚠️  .env.local file not found. Creating basic configuration..."
     cat > .env.local << EOF
 NODE_ENV=development
-BASE_URL=http://localhost:3000
+BASE_URL=http://localhost:3001
 NEXT_TELEMETRY_DISABLED=1
 # Backend API URL - update with your actual backend URL
 NEXT_PUBLIC_API_URL=http://teryaq-backend:3000
@@ -34,7 +34,7 @@ echo "🚀 Starting development services..."
 docker-compose -f docker-compose.dev.yml up -d
 
 echo "✅ Development deployment completed!"
-echo "🌐 Application is running at: http://localhost:3000"
+echo "🌐 Application is running at: http://localhost:3001"
 echo "🔥 Hot reload is enabled for development"
 
 # Show logs
