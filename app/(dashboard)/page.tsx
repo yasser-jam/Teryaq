@@ -15,22 +15,6 @@ export default function Dashboard() {
 
       {/* Stats Cards */}
       <DashboardStats />
-
-      {/* Charts and Activity Log */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {/* Pharmacies Bar Chart */}
-        <div className="col-span-1 md:col-span-2">
-          <PharmaciesBarChart />
-        </div>
-        
-        {/* Activity Log */}
-        <ActivityLog />
-      </div>
-
-      {/* Income Chart */}
-      <div className="grid gap-6">
-        <IncomeLineChart />
-      </div>
     </div>
   )
 }

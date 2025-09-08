@@ -11,7 +11,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
-import { successToast } from '@/lib/toast';
+import { errorToast, successToast } from '@/lib/toast';
 
 export default function TypesLayout({
   children,
@@ -73,6 +73,9 @@ export default function TypesLayout({
       queryClient.invalidateQueries({ queryKey: ['types-list'] });
       successToast('Type deleted successfully');
     },
+    onError: () => {
+      errorToast('Can not delete type related to medicines')
+    }
   });
 
   return (

@@ -103,13 +103,13 @@ export default function LoginForm() {
 
         {/* Forgot Password */}
         <div className='flex justify-end'>
-          <Button
+          {/* <Button
             type='button'
             variant='link'
             className='px-0 text-sm text-primary hover:underline'
           >
             Forgot Password?
-          </Button>
+          </Button> */}
         </div>
 
         {/* Login Button */}
@@ -126,9 +126,9 @@ export default function LoginForm() {
       {/* Additional Options */}
       <div className='text-center text-sm text-muted-foreground'>
         {"Don't have an account? "}
-        <Button variant='link' className='px-0 text-primary hover:underline'>
+        {/* <Button variant='link' className='px-0 text-primary hover:underline'>
           Sign up here
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

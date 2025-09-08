@@ -41,22 +41,10 @@ export function DashboardStats() {
       },
       colorClass: "bg-gradient-to-br from-purple-500 to-purple-600"
     },
-    {
-      title: "Monthly Income",
-      value: "$48,290",
-      icon: TrendingUp,
-      description: "Revenue this month",
-      trend: {
-        value: 23,
-        label: "from last month",
-        isPositive: true
-      },
-      colorClass: "bg-gradient-to-br from-orange-500 to-orange-600"
-    }
   ]
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {stats.map((stat, index) => (
         <StatsCard key={index} {...stat} />
       ))}
